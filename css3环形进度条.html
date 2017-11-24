@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>svg环形进度条</title>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
+</head>
+<style>
+*{margin: 0;padding: 0;}
+@charset "utf-8";a.default:link,a.default:visited{color:#1d94d1;text-decoration:none}
+a.default:active,a.default:hover{color:#3cbdff;text-decoration:none}
+
+body{overflow-x:hidden;width:100%}
+html{color:#000;background:#fefefe;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+a,abbr,address,b,blockquote,body,caption,cite,code,dd,del,dfn,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,h5,h6,i,iframe,img,ins,kbd,label,legend,li,object,ol,p,pre,q,samp,small,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,ul,var{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline}
+menu,ol,ul{list-style:none}
+body,button,input,optgroup,option,select,textarea{font:12px/1.5 tahoma,arial,sans-serif}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}
+fieldset,img{border:0}
+table{border-collapse:collapse;border-spacing:0}
+
+.circle{width:200px;height:200px;position:relative;border-radius:50%;background:#fed842}
+.pie_left,.pie_right{width:200px;height:200px;position:absolute;top:0;left:0}
+.rotate-left,.rotate-right{width:200px;height:200px;background:#ccc;border-radius:50%;position:absolute;top:0;left:0}
+.pie_right,.rotate-right{clip:rect(0,auto,auto,100px)}
+.pie_left,.rotate-left{clip:rect(0,100px,auto,0)}
+.mask{width:180px;height:180px;border-radius:50%;left:10px;top:10px;background:#fff;position:absolute}
+
+
+</style>
+<body >
+
+<div class="circle" data-percent="60">
+  <div class="pie_left"><div class="rotate-left"></div></div>
+  <div class="pie_right"><div class="rotate-right"></div></div>
+  <div class="mask"></div>
+</div>
+                
+
+</body>
+</html>
+<script>
+$('.circle').each(function(index, el) {
+    var num = parseFloat($(this).data("percent")) * 3.6;
+    // 进度小于50% num<180反之大于180
+    if (num<=180) {
+        $(this).find('.rotate-right').css('transform', "rotate(" + num + "deg)");
+    } else {
+        $(this).find('.rotate-right').css('transform', "rotate(180deg)");
+        $(this).find('.rotate-left').css('transform', "rotate(" + (num - 180) + "deg)");
+    };
+});
+</script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>svg环形进度条</title>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.8.1/jquery.js"></script>
+</head>
+<style>
+*{margin: 0;padding: 0;}
+@charset "utf-8";a.default:link,a.default:visited{color:#1d94d1;text-decoration:none}
+a.default:active,a.default:hover{color:#3cbdff;text-decoration:none}
+
+body{overflow-x:hidden;width:100%}
+html{color:#000;background:#fefefe;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+a,abbr,address,b,blockquote,body,caption,cite,code,dd,del,dfn,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,h5,h6,i,iframe,img,ins,kbd,label,legend,li,object,ol,p,pre,q,samp,small,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,ul,var{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline}
+menu,ol,ul{list-style:none}
+body,button,input,optgroup,option,select,textarea{font:12px/1.5 tahoma,arial,sans-serif}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}
+fieldset,img{border:0}
+table{border-collapse:collapse;border-spacing:0}
+
+.demo2{
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dasharray .3s ease-in;
+}
+text {   
+    text-anchor: middle;   
+    pointer-events: auto; /* Cancel the svg’s pointer-events */  
+}   
+
+</style>
+<body >
+
+<div class="data-speed">
+	<svg xmlns="http://www.w3.org/200/svg" height="110" width="110">
+	  <circle cx="55" cy="55" r="50" fill="none" stroke="black" stroke-width="5" stroke-linecap="round"/>
+	  <circle class="demo2 J_demo2" id="" cx="55" cy="55" r="50" fill="none" stroke="red" stroke-width="5" stroke-dasharray="0,10000"/>
+	  <path d="M0 0 L50 50 L100 100 Z"/>
+	  <!-- 改变进度只需要改变text值最大为100 -->
+	  <text class="data-value" x="50%" y="50%" fill="#f00">40%</text>
+	</svg>
+</div>
+                
+
+</body>
+</html>
+<script>
+	var demo2 =  $(".data-speed").find(".J_demo2");
+
+	var initVal = parseInt($(".data-speed").find(".data-value").text());
+
+	var circleLength = Math.floor(2 * Math.PI * demo2.attr('r'));
+	console.log(demo2.attr('data'));
+	rotateCircle();
+	function rotateCircle(){
+	    var val = parseFloat(initVal).toFixed(2);
+	      val = Math.max(0,val);
+	      val = Math.min(100,val);
+	      demo2.attr("stroke-dasharray","" + circleLength * val / 100 + ",10000");
+	}
+</script>
